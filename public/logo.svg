@@ -1,0 +1,16 @@
+<svg width="160" height="96" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ali Paint and Hardware — APH">
+  <path d="M4 14V4H14M66 4H76V14M4 34V44H14M66 44H76V34" stroke="#2C2416" stroke-width="2.5" stroke-linecap="square"/>
+  <path d="M18 38L24 12L30 38M20.5 29H27.5" stroke="#2C2416" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24" cy="10" r="2.5" fill="#7A5C2E"/>
+  <path d="M38 38V12H46C51.5 12 54 15.5 54 20C54 24.5 51.5 28 46 28H38" stroke="#2C2416" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50 32C50 32 52 36 50 39C48 42 46 39 46 36C46 34 50 32 50 32Z" fill="#7A5C2E"/>
+  <path d="M58 38V12M58 25H70M70 12V38" stroke="#2C2416" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="64" cy="25" r="2" fill="#7A5C2E"/>
+  <circle cx="64" cy="25" r="0.8" fill="#FAF7F2"/>
+  <rect x="16" y="41" width="6" height="2" rx="0.5" fill="#2D7A4F"/>
+  <rect x="24" y="41" width="6" height="2" rx="0.5" fill="#B8860B"/>
+  <rect x="32" y="41" width="6" height="2" rx="0.5" fill="#C0392B"/>
+  <rect x="40" y="41" width="6" height="2" rx="0.5" fill="#7A5C2E"/>
+  <rect x="48" y="41" width="6" height="2" rx="0.5" fill="#2D7A4F"/>
+  <rect x="56" y="41" width="6" height="2" rx="0.5" fill="#B8860B"/>
+</svg>
