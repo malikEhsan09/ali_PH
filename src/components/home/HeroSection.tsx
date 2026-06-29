@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import HudButton from "@/components/common/HudButton";
 import VintageTV from "@/components/home/VintageTV";
 
 export default function HeroSection() {
@@ -58,19 +58,16 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
           >
-            <Link
+            <HudButton
               href="/products"
-              className="inline-flex items-center justify-center gap-2 bg-accent-brand hover:bg-accent-light text-primary-foreground font-bold px-8 py-4 transition-all duration-300 shadow-md group"
+              variant="primary"
+              icon={<ArrowRight size={16} strokeWidth={2.5} />}
             >
               Explore Catalog
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="/calculator"
-              className="inline-flex items-center justify-center gap-2 bg-bg-card hover:bg-bg-secondary border border-border text-text-primary px-8 py-4 transition-all duration-300 font-semibold"
-            >
+            </HudButton>
+            <HudButton href="/calculator" variant="secondary">
               Paint Calculator
-            </Link>
+            </HudButton>
           </motion.div>
         </div>
 

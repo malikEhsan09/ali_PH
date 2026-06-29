@@ -317,32 +317,86 @@ export default function VintageTV() {
           </div>
         </div>
 
-        {/* Wooden table */}
-        <div className="relative mx-1 -mt-1">
-          {/* Tabletop — TV sits on this */}
-          <div className="relative h-4 border-x border-t border-border bg-linear-to-b from-accent-light/70 via-accent-brand/50 to-accent-dark/80 dark:from-[#5a4a30] dark:via-[#3d3225] dark:to-[#2a2018] shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
-            <div className="absolute inset-x-3 top-1 h-px bg-white/20 dark:bg-white/10" />
-            <div className="absolute inset-x-6 top-2.5 h-px bg-black/10 dark:bg-black/25" />
-          </div>
+        {/* Antenna-style ^ stand with cross bars */}
+        <div className="relative mx-auto w-[88%] -mt-2" aria-hidden>
+          <svg
+            viewBox="0 0 220 90"
+            className="w-full h-auto"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Top mount shelf — TV rests here */}
+            <rect
+              x="35"
+              y="2"
+              width="150"
+              height="7"
+              rx="1"
+              className="fill-accent-brand/70 stroke-border dark:fill-[#5a4a30] dark:stroke-[#555]"
+              strokeWidth="1"
+            />
+            <rect x="42" y="4" width="136" height="1.5" className="fill-white/25 dark:fill-white/10" />
 
-          {/* Apron / drawer front */}
-          <div className="mx-3 h-5 border-x border-b border-border bg-linear-to-b from-accent-dark/60 to-accent-brand/40 dark:from-[#2a2018] dark:to-[#1a1510] flex items-center justify-center gap-2">
-            <div className="w-8 h-1 bg-accent-light/50 dark:bg-[#5a4a30] rounded-full" />
-            <div className="w-1.5 h-1.5 rounded-full bg-text-muted/40" />
-          </div>
+            {/* Left angled leg (^) */}
+            <line
+              x1="52"
+              y1="9"
+              x2="18"
+              y2="82"
+              className="stroke-text-muted dark:stroke-[#777]"
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
+            {/* Right angled leg (^) */}
+            <line
+              x1="168"
+              y1="9"
+              x2="202"
+              y2="82"
+              className="stroke-text-muted dark:stroke-[#777]"
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
 
-          {/* Table legs */}
-          <div className="flex justify-between px-6 pb-1">
-            {[0, 1].map((i) => (
-              <div
-                key={i}
-                className="w-4 h-14 border border-border bg-linear-to-b from-accent-brand/80 via-accent-dark/90 to-accent-dark dark:from-[#4a3a28] dark:via-[#2a2018] dark:to-[#1a1510] shadow-[2px_2px_0_rgba(0,0,0,0.12)]"
-              />
-            ))}
-          </div>
+            {/* Upper cross bar */}
+            <line
+              x1="38"
+              y1="38"
+              x2="182"
+              y2="38"
+              className="stroke-accent-brand dark:stroke-[#9a7844]"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+            {/* Lower cross bar */}
+            <line
+              x1="28"
+              y1="58"
+              x2="192"
+              y2="58"
+              className="stroke-accent-brand/70 dark:stroke-[#7a5c2e]"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+
+            {/* Center brace — small ^ detail like antenna mast */}
+            <line
+              x1="110"
+              y1="38"
+              x2="110"
+              y2="58"
+              className="stroke-text-muted/60 dark:stroke-[#666]"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+
+            {/* Feet caps */}
+            <circle cx="18" cy="82" r="4" className="fill-accent-dark stroke-border dark:fill-[#2a2018] dark:stroke-[#555]" strokeWidth="1" />
+            <circle cx="202" cy="82" r="4" className="fill-accent-dark stroke-border dark:fill-[#2a2018] dark:stroke-[#555]" strokeWidth="1" />
+          </svg>
 
           {/* Floor shadow */}
-          <div className="mx-8 h-2 bg-black/10 dark:bg-black/30 blur-md rounded-full" />
+          <div className="mx-6 -mt-1 h-2 bg-black/10 dark:bg-black/30 blur-md rounded-full" />
         </div>
       </div>
 
