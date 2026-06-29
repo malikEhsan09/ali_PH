@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Logo from "@/components/common/Logo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
@@ -35,18 +36,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-none bg-accent-brand/10 border border-accent-brand/30 flex items-center justify-center">
-                <span className="text-accent-brand font-bold text-lg font-heading">A</span>
-              </div>
-              <div>
-                <h2 className="text-lg font-bold font-heading tracking-tight text-text-primary">
-                  ALI <span className="text-accent-brand">Paint</span>
-                </h2>
-                <p className="text-[10px] text-text-muted -mt-1 tracking-wider uppercase">
-                  & Hardware
-                </p>
-              </div>
+            <Link href="/" className="group inline-flex">
+              <Logo size={36} showName className="group-hover:opacity-90 transition-opacity" />
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed">
               Authorized affiliate and premium dealer of Gobis Paints Pakistan. We deliver state-of-the-art paint formulations and top-tier hardware solutions for premium residential, commercial, and industrial spaces.
@@ -186,7 +177,7 @@ export default function Footer() {
             </div>
             <div>
               <p className="text-[10px] text-text-muted uppercase tracking-wider">Phone Support</p>
-              <p className="font-medium">+92 300 1234567</p>
+              <p className="font-medium">+92 324 5555630</p>
             </div>
           </div>
           <div className="flex items-center gap-3 text-text-secondary">
@@ -195,7 +186,7 @@ export default function Footer() {
             </div>
             <div>
               <p className="text-[10px] text-text-muted uppercase tracking-wider">Store Location</p>
-              <p className="font-medium">Main Boulevard, DHA Phase 5, Lahore</p>
+              <p className="font-medium">Ari Syedan, DHA Phase 5, Islamabad</p>
             </div>
           </div>
           <div className="flex items-center gap-3 text-text-secondary">

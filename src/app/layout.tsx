@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Outfit } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ThemeProvider from "@/components/common/ThemeProvider";
@@ -18,6 +19,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  ),
   title: "ALI Paint & Hardware | Premium Paints & Hardware Solutions",
   description:
     "ALI Paint & Hardware — Authorized Gobis Paints dealer. Premium paints, coatings, and hardware solutions for residential, commercial, and industrial projects in Pakistan.",
@@ -29,13 +33,18 @@ export const metadata: Metadata = {
     "interior paint",
     "exterior paint",
     "Pakistan",
-    "Lahore",
+    "Islamabad",
   ],
+  icons: {
+    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/logo.svg", type: "image/svg+xml" }],
+  },
   openGraph: {
     title: "ALI Paint & Hardware | Premium Paints & Hardware Solutions",
     description:
       "Authorized Gobis Paints dealer. Premium paints, coatings, and hardware solutions.",
     type: "website",
+    images: [{ url: "/logo.svg", width: 64, height: 64, alt: "Ali Paint & Hardware" }],
   },
 };
 
@@ -50,14 +59,10 @@ export default function RootLayout({
       className={`${inter.variable} ${outfit.variable} antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('ali-paint-theme');if(s){var d=JSON.parse(s);if(d.state&&d.state.theme==='dark')document.documentElement.classList.add('dark');}}catch(e){}})();`,
-          }}
-        />
-      </head>
       <body className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{var s=localStorage.getItem('ali-paint-theme');if(s){var d=JSON.parse(s);if(d.state&&d.state.theme==='dark')document.documentElement.classList.add('dark');}}catch(e){}})();`}
+        </Script>
         <ThemeProvider>
           <GrainOverlay />
           <TooltipProvider>

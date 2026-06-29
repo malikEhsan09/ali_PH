@@ -56,7 +56,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="text-[10px] text-text-muted uppercase">Phone Support</span>
-                    <p className="font-bold text-text-primary mt-0.5">+92 300 1234567</p>
+                    <p className="font-bold text-text-primary mt-0.5">+92 324 5555630</p>
                   </div>
                 </div>
 
@@ -76,7 +76,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="text-[10px] text-text-muted uppercase">Store Location</span>
-                    <p className="font-bold text-text-primary mt-0.5">Main Boulevard, DHA Phase 5, Lahore</p>
+                    <p className="font-bold text-text-primary mt-0.5">Ari Syedan, DHA Phase 5, Islamabad</p>
                   </div>
                 </div>
 
@@ -179,7 +179,7 @@ export default function ContactPage() {
             <MapPin size={32} className="text-accent-brand animate-float mb-4" />
             <h4 className="font-bold text-text-primary font-heading">Showroom Location Preview</h4>
             <p className="text-xs text-text-secondary max-w-sm mt-1 leading-relaxed">
-              Main Boulevard, Sector Y Commercial, DHA Phase 5, Lahore, Pakistan.
+              Ari Syedan, Sector Y Commercial, DHA Phase 5, Islamabad, Pakistan.
             </p>
           </div>
         </div>

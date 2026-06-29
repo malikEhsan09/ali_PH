@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import SiteImage from "@/components/common/SiteImage";
-import { siteImages } from "@/data/images";
+import Logo from "@/components/common/Logo";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search, ShoppingCart, Heart, Menu, X, ChevronDown,
@@ -13,6 +12,7 @@ import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { useUIStore } from "@/store/ui-store";
 import ThemeToggle from "@/components/common/ThemeToggle";
+import { useHydrated } from "@/lib/use-hydrated";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -42,6 +42,7 @@ export default function Header() {
   const { mobileMenuOpen, setMobileMenuOpen, setCartDrawerOpen } = useUIStore();
   const cartCount = useCartStore((s) => s.getItemCount());
   const wishlistCount = useWishlistStore((s) => s.items.length);
+  const hydrated = useHydrated();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -56,10 +57,10 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-xs text-text-muted">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
-              <Phone size={12} className="text-accent-brand" /> +92 300 1234567
+              <Phone size={12} className="text-accent-brand" /> +92 324 5555630
             </span>
             <span className="flex items-center gap-1.5">
-              <MapPin size={12} className="text-accent-brand" /> Main Boulevard, Lahore
+              <MapPin size={12} className="text-accent-brand" /> Ari Syedan, Islamabad
             </span>
             <span className="flex items-center gap-1.5">
               <Clock size={12} className="text-accent-brand" /> Mon–Sat: 9AM–8PM
@@ -84,24 +85,9 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-bg-card border border-border flex items-center justify-center group-hover:border-accent-brand/40 transition-all duration-300 overflow-hidden">
-                <SiteImage
-                  src={siteImages.brands.gobis}
-                  alt="ALI Paint logo"
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                />
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-lg font-bold font-heading tracking-tight text-text-primary">
-                  ALI <span className="text-accent-brand">Paint</span>
-                </h1>
-                <p className="text-[10px] text-text-muted -mt-1 tracking-wider uppercase">
-                  & Hardware
-                </p>
-              </div>
+            <Link href="/" aria-label="Ali Paint & Hardware home" className="group">
+              <Logo size={36} showName className="hidden sm:flex group-hover:opacity-90 transition-opacity" />
+              <Logo size={36} className="sm:hidden group-hover:opacity-90 transition-opacity" />
             </Link>
 
             {/* Desktop Nav */}
@@ -173,7 +159,7 @@ export default function Header() {
                 aria-label="Wishlist"
               >
                 <Heart size={20} />
-                {wishlistCount > 0 && (
+                {hydrated && wishlistCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-none bg-accent-brand text-primary-foreground text-[10px] font-bold flex items-center justify-center border border-border">
                     {wishlistCount}
                   </span>
@@ -186,7 +172,7 @@ export default function Header() {
                 aria-label="Cart"
               >
                 <ShoppingCart size={20} />
-                {cartCount > 0 && (
+                {hydrated && cartCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-none bg-accent-brand text-primary-foreground text-[10px] font-bold flex items-center justify-center border border-border">
                     {cartCount}
                   </span>
@@ -255,10 +241,10 @@ export default function Header() {
                   <ThemeToggle />
                 </div>
                 <p className="text-text-muted text-sm flex items-center gap-2">
-                  <Phone size={14} className="text-accent-brand" /> +92 300 1234567
+                  <Phone size={14} className="text-accent-brand" /> +92 324 5555630
                 </p>
                 <p className="text-text-muted text-sm flex items-center gap-2">
-                  <MapPin size={14} className="text-accent-brand" /> Main Boulevard, Lahore
+                  <MapPin size={14} className="text-accent-brand" /> Ari Syedan, Islamabad
                 </p>
                 <p className="text-accent-brand text-sm font-medium mt-4">
                   ✦ Authorized Gobis Paints Dealer

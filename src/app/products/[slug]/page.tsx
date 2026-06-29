@@ -10,6 +10,7 @@ import { useWishlistStore } from "@/store/wishlist-store";
 import { Star, Shield, Droplets, Clock, Layers, Sparkles, CheckCircle2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import SiteImage from "@/components/common/SiteImage";
+import { useHydrated } from "@/lib/use-hydrated";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -25,8 +26,9 @@ export default function ProductDetailPage({ params }: PageProps) {
 
   const { addItem: addToCart } = useCartStore();
   const { toggleItem: toggleWishlist, isInWishlist } = useWishlistStore();
+  const hydrated = useHydrated();
   const related = getRelatedProducts(product);
-  const isWish = isInWishlist(product.id);
+  const isWish = hydrated && isInWishlist(product.id);
 
   return (
     <LayoutWrapper>

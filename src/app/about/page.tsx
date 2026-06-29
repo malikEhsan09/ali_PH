@@ -63,7 +63,7 @@ export default function AboutPage() {
               />
               <div className="absolute bottom-0 inset-x-0 p-4 glass border-t border-border">
                 <span className="text-[10px] text-accent-brand uppercase tracking-wider font-semibold">Authorized Showroom</span>
-                <h4 className="font-heading font-bold text-text-primary text-sm mt-0.5">Main Boulevard Showroom, Lahore</h4>
+                <h4 className="font-heading font-bold text-text-primary text-sm mt-0.5">Ari Syedan Showroom, Islamabad</h4>
               </div>
             </motion.div>
           </div>

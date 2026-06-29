@@ -6,6 +6,7 @@ import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { useCompareStore } from "@/store/compare-store";
 import { useUIStore } from "@/store/ui-store";
+import { useHydrated } from "@/lib/use-hydrated";
 import Link from "next/link";
 import SiteImage from "@/components/common/SiteImage";
 
@@ -18,8 +19,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { toggleItem: toggleWishlist, isInWishlist } = useWishlistStore();
   const { addItem: addToCompare, removeItem: removeFromCompare, isInCompare } = useCompareStore();
   const { setQuickViewProduct } = useUIStore();
+  const hydrated = useHydrated();
 
-  const isWish = isInWishlist(product.id);
+  const isWish = hydrated && isInWishlist(product.id);
   const isCompared = isInCompare(product.id);
 
   const handleCompareClick = (e: React.MouseEvent) => {

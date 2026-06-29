@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { HERO_VIDEO_SRC } from "@/data/site";
 
 type TVPhase = "boot" | "static" | "tuning" | "playing";
 
@@ -49,11 +50,12 @@ export default function VintageTV() {
   const [phase, setPhase] = useState<TVPhase>("boot");
   const [volumeLevel, setVolumeLevel] = useState(65);
   const [tuneLevel, setTuneLevel] = useState(42);
-  const [videoOk, setVideoOk] = useState(true);
+  const [videoOk, setVideoOk] = useState(Boolean(HERO_VIDEO_SRC));
+  const [videoSrc] = useState<string | null>(HERO_VIDEO_SRC);
 
   const startPlayback = useCallback(async () => {
     const video = videoRef.current;
-    if (!video || !videoOk) {
+    if (!video || !videoOk || !videoSrc) {
       setPhase("playing");
       return;
     }
@@ -69,7 +71,7 @@ export default function VintageTV() {
       setVideoOk(false);
       setPhase("playing");
     }
-  }, [videoOk]);
+  }, [videoOk, videoSrc]);
 
   const drawStatic = useCallback(() => {
     const canvas = canvasRef.current;
@@ -108,7 +110,7 @@ export default function VintageTV() {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !videoSrc) return;
 
     const onError = () => setVideoOk(false);
     const onCanPlay = () => {
@@ -129,7 +131,7 @@ export default function VintageTV() {
       video.removeEventListener("canplay", onCanPlay);
       video.removeEventListener("ended", onEnded);
     };
-  }, []);
+  }, [videoSrc]);
 
   useEffect(() => {
     const bootTimer = setTimeout(() => setPhase("static"), 400);
@@ -210,18 +212,20 @@ export default function VintageTV() {
           {/* Screen bezel */}
           <div className="relative aspect-4/3 overflow-hidden bg-[#0a0a0a] border-4 border-text-primary/20 dark:border-[#1a1a1a] shadow-[inset_0_0_30px_rgba(0,0,0,0.8)]">
             {/* Video — auto-plays in loop after static */}
-            <video
-              ref={videoRef}
-              src="/videos/paint-wall.mp4"
-              muted
-              loop
-              autoPlay={false}
-              playsInline
-              preload="auto"
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-                showContent && videoOk ? "opacity-100" : "opacity-0"
-              }`}
-            />
+            {videoSrc && (
+              <video
+                ref={videoRef}
+                src={videoSrc}
+                muted
+                loop
+                autoPlay={false}
+                playsInline
+                preload="auto"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                  showContent && videoOk ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            )}
 
             {/* Fallback paint animation when video unavailable */}
             {showContent && !videoOk && <PaintWallFallback />}

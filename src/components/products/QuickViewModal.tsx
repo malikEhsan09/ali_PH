@@ -3,6 +3,7 @@
 import { useUIStore } from "@/store/ui-store";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
+import { useHydrated } from "@/lib/use-hydrated";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { X, Star, ShoppingCart, Heart } from "lucide-react";
 import SiteImage from "@/components/common/SiteImage";
@@ -11,11 +12,12 @@ export default function QuickViewModal() {
   const { quickViewProduct, setQuickViewProduct } = useUIStore();
   const { addItem: addToCart } = useCartStore();
   const { toggleItem: toggleWishlist, isInWishlist } = useWishlistStore();
+  const hydrated = useHydrated();
 
   if (!quickViewProduct) return null;
 
   const product = quickViewProduct;
-  const isWish = isInWishlist(product.id);
+  const isWish = hydrated && isInWishlist(product.id);
 
   return (
     <Dialog open={!!product} onOpenChange={(open) => !open && setQuickViewProduct(null)}>
