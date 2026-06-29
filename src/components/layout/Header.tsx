@@ -1,0 +1,273 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import SiteImage from "@/components/common/SiteImage";
+import { siteImages } from "@/data/images";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search, ShoppingCart, Heart, Menu, X, ChevronDown,
+  Phone, MapPin, Clock,
+} from "lucide-react";
+import { useCartStore } from "@/store/cart-store";
+import { useWishlistStore } from "@/store/wishlist-store";
+import { useUIStore } from "@/store/ui-store";
+import ThemeToggle from "@/components/common/ThemeToggle";
+
+const navItems = [
+  { label: "Home", href: "/" },
+  {
+    label: "Products",
+    href: "/products",
+    children: [
+      { label: "Interior Paints", href: "/products?category=interior-paints" },
+      { label: "Exterior Paints", href: "/products?category=exterior-paints" },
+      { label: "Wood Finishes", href: "/products?category=wood-finishes" },
+      { label: "Primers", href: "/products?category=primers" },
+      { label: "Textures", href: "/products?category=textures" },
+      { label: "Waterproofing", href: "/products?category=waterproofing" },
+      { label: "View All Products", href: "/products" },
+    ],
+  },
+  { label: "Calculator", href: "/calculator" },
+  { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { mobileMenuOpen, setMobileMenuOpen, setCartDrawerOpen } = useUIStore();
+  const cartCount = useCartStore((s) => s.getItemCount());
+  const wishlistCount = useWishlistStore((s) => s.items.length);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  return (
+    <>
+      {/* Top Bar */}
+      <div className="hidden lg:block bg-bg-secondary border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-xs text-text-muted">
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-1.5">
+              <Phone size={12} className="text-accent-brand" /> +92 300 1234567
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin size={12} className="text-accent-brand" /> Main Boulevard, Lahore
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Clock size={12} className="text-accent-brand" /> Mon–Sat: 9AM–8PM
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-accent-brand font-medium">
+              ✦ Authorized Gobis Paints Dealer
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Header */}
+      <header
+        className={`sticky top-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "glass-strong shadow-lg shadow-black/10 dark:shadow-black/40"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 bg-bg-card border border-border flex items-center justify-center group-hover:border-accent-brand/40 transition-all duration-300 overflow-hidden">
+                <SiteImage
+                  src={siteImages.brands.gobis}
+                  alt="ALI Paint logo"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-lg font-bold font-heading tracking-tight text-text-primary">
+                  ALI <span className="text-accent-brand">Paint</span>
+                </h1>
+                <p className="text-[10px] text-text-muted -mt-1 tracking-wider uppercase">
+                  & Hardware
+                </p>
+              </div>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-1">
+              {navItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() =>
+                    item.children && setActiveDropdown(item.label)
+                  }
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-1 px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 rounded-none hover:bg-bg-secondary"
+                  >
+                    {item.label}
+                    {item.children && (
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-200 ${
+                          activeDropdown === item.label ? "rotate-180" : ""
+                        }`}
+                      />
+                    )}
+                  </Link>
+
+                  {/* Dropdown */}
+                  <AnimatePresence>
+                    {item.children && activeDropdown === item.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 mt-1 w-56 glass-strong rounded-none p-2 shadow-xl shadow-black/10 dark:shadow-black/40"
+                      >
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            className="block px-3 py-2 text-sm text-text-secondary hover:text-accent-brand hover:bg-bg-secondary rounded-none transition-all duration-200"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </nav>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+
+              <button
+                className="p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary"
+                aria-label="Search"
+              >
+                <Search size={20} />
+              </button>
+
+              <Link
+                href="/products"
+                className="relative p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary"
+                aria-label="Wishlist"
+              >
+                <Heart size={20} />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-none bg-accent-brand text-primary-foreground text-[10px] font-bold flex items-center justify-center border border-border">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
+              <button
+                onClick={() => setCartDrawerOpen(true)}
+                className="relative p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary"
+                aria-label="Cart"
+              >
+                <ShoppingCart size={20} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-none bg-accent-brand text-primary-foreground text-[10px] font-bold flex items-center justify-center border border-border">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary"
+                aria-label="Menu"
+              >
+                {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-40 bg-bg-primary/98 backdrop-blur-xl lg:hidden"
+          >
+            <div className="pt-24 px-6 pb-8 h-full overflow-y-auto">
+              <nav className="space-y-1">
+                {navItems.map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-3 px-4 text-lg font-medium text-text-secondary hover:text-accent-brand transition-colors border-b border-border"
+                    >
+                      {item.label}
+                    </Link>
+                    {item.children && (
+                      <div className="pl-8 space-y-1 py-2">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block py-2 text-sm text-text-muted hover:text-accent-brand transition-colors"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </nav>
+
+              <div className="mt-8 pt-8 border-t border-border space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-text-muted">Appearance</span>
+                  <ThemeToggle />
+                </div>
+                <p className="text-text-muted text-sm flex items-center gap-2">
+                  <Phone size={14} className="text-accent-brand" /> +92 300 1234567
+                </p>
+                <p className="text-text-muted text-sm flex items-center gap-2">
+                  <MapPin size={14} className="text-accent-brand" /> Main Boulevard, Lahore
+                </p>
+                <p className="text-accent-brand text-sm font-medium mt-4">
+                  ✦ Authorized Gobis Paints Dealer
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
