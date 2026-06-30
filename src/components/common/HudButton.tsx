@@ -22,7 +22,7 @@ export default function HudButton({
     <Link
       href={href}
       className={cn(
-        "group/hud relative inline-flex min-w-[180px] items-center justify-center px-8 py-4",
+        "group/hud relative inline-flex min-w-[180px] items-center justify-center px-8 py-4 cursor-pointer",
         "font-mono text-xs sm:text-sm font-semibold uppercase tracking-[0.2em]",
         "text-text-primary dark:text-[#ece8df]",
         "transition-colors duration-700",

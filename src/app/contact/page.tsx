@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { Phone, MapPin, Clock, Mail, Send, Check } from "lucide-react";
 import { useState } from "react";
+import LocationMap from "@/components/contact/LocationMap";
 
 const schema = zod.object({
   name: zod.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -173,15 +174,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Map placeholder */}
-          <div className="w-full h-80 rounded-none bg-bg-secondary border border-border flex flex-col items-center justify-center relative overflow-hidden shadow-2xl p-6 text-center">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(214,185,140,0.04)_0%,transparent_70%)]" />
-            <MapPin size={32} className="text-accent-brand animate-float mb-4" />
-            <h4 className="font-bold text-text-primary font-heading">Showroom Location Preview</h4>
-            <p className="text-xs text-text-secondary max-w-sm mt-1 leading-relaxed">
-              Ari Syedan, Sector Y Commercial, DHA Phase 5, Islamabad, Pakistan.
-            </p>
-          </div>
+          <LocationMap />
         </div>
       </div>
     </LayoutWrapper>

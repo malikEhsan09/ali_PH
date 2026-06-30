@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import CartDrawer from "../cart/CartDrawer";
 import CompareDrawer from "../products/CompareDrawer";
 import QuickViewModal from "../products/QuickViewModal";
+import SearchDialog from "../layout/SearchDialog";
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
       <CartDrawer />
       <CompareDrawer />
       <QuickViewModal />
+      <SearchDialog />
     </div>
   );
 }

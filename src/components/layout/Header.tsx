@@ -39,7 +39,7 @@ const navItems = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const { mobileMenuOpen, setMobileMenuOpen, setCartDrawerOpen } = useUIStore();
+  const { mobileMenuOpen, setMobileMenuOpen, setCartDrawerOpen, setSearchOpen } = useUIStore();
   const cartCount = useCartStore((s) => s.getItemCount());
   const wishlistCount = useWishlistStore((s) => s.items.length);
   const hydrated = useHydrated();
@@ -85,7 +85,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link href="/" aria-label="Ali Paint & Hardware home" className="group">
+            <Link href="/" aria-label="Ali Paint & Hardware home" className="group cursor-pointer">
               <Logo size={36} showName className="hidden sm:flex group-hover:opacity-90 transition-opacity" />
               <Logo size={36} className="sm:hidden group-hover:opacity-90 transition-opacity" />
             </Link>
@@ -103,7 +103,7 @@ export default function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 rounded-none hover:bg-bg-secondary"
+                    className="flex items-center gap-1 px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 rounded-none hover:bg-bg-secondary cursor-pointer"
                   >
                     {item.label}
                     {item.children && (
@@ -147,15 +147,17 @@ export default function Header() {
               <ThemeToggle />
 
               <button
-                className="p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary"
-                aria-label="Search"
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                className="p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary cursor-pointer"
+                aria-label="Search products"
               >
                 <Search size={20} />
               </button>
 
               <Link
                 href="/products"
-                className="relative p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary"
+                className="relative p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary cursor-pointer"
                 aria-label="Wishlist"
               >
                 <Heart size={20} />
@@ -167,8 +169,9 @@ export default function Header() {
               </Link>
 
               <button
+                type="button"
                 onClick={() => setCartDrawerOpen(true)}
-                className="relative p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary"
+                className="relative p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary hover:text-text-primary cursor-pointer"
                 aria-label="Cart"
               >
                 <ShoppingCart size={20} />
@@ -180,8 +183,9 @@ export default function Header() {
               </button>
 
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary"
+                className="lg:hidden p-2.5 rounded-none hover:bg-bg-secondary transition-colors text-text-secondary cursor-pointer"
                 aria-label="Menu"
               >
                 {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -236,6 +240,16 @@ export default function Header() {
               </nav>
 
               <div className="mt-8 pt-8 border-t border-border space-y-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setSearchOpen(true);
+                  }}
+                  className="w-full flex items-center gap-2 py-3 px-4 text-sm text-text-secondary hover:text-accent-brand border border-border hover:border-accent-brand/40 transition-colors cursor-pointer"
+                >
+                  <Search size={16} /> Search Products
+                </button>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-text-muted">Appearance</span>
                   <ThemeToggle />

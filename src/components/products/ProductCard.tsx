@@ -55,7 +55,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           }}
           className={`w-8 h-8 ${
             isWish ? "bg-accent-brand text-primary-foreground" : "bg-bg-card/90 text-text-secondary hover:text-text-primary border border-border"
-          } flex items-center justify-center transition-all duration-300`}
+          } flex items-center justify-center transition-all duration-300 cursor-pointer`}
         >
           <Heart size={14} fill={isWish ? "currentColor" : "none"} />
         </button>
@@ -76,7 +76,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               e.preventDefault();
               setQuickViewProduct(product);
             }}
-            className="w-10 h-10 bg-bg-card hover:bg-bg-secondary border border-border flex items-center justify-center text-text-primary transition-all duration-300 hover:scale-105"
+            className="w-10 h-10 bg-bg-card hover:bg-bg-secondary border border-border flex items-center justify-center text-text-primary transition-all duration-300 hover:scale-105 cursor-pointer"
             title="Quick View"
           >
             <Eye size={18} />
@@ -85,7 +85,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             onClick={handleCompareClick}
             className={`w-10 h-10 ${
               isCompared ? "bg-accent-brand text-primary-foreground" : "bg-bg-card hover:bg-bg-secondary"
-            } border border-border flex items-center justify-center text-text-primary transition-all duration-300 hover:scale-105`}
+            } border border-border flex items-center justify-center text-text-primary transition-all duration-300 hover:scale-105 cursor-pointer`}
             title="Compare"
           >
             <ArrowRightLeft size={18} />
@@ -136,7 +136,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               e.preventDefault();
               addToCart(product, 1);
             }}
-            className="w-9 h-9 bg-accent-brand/10 hover:bg-accent-brand text-accent-brand hover:text-primary-foreground flex items-center justify-center transition-all duration-300"
+            className="w-9 h-9 bg-accent-brand/10 hover:bg-accent-brand text-accent-brand hover:text-primary-foreground flex items-center justify-center transition-all duration-300 cursor-pointer"
           >
             <ShoppingCart size={16} />
           </button>
