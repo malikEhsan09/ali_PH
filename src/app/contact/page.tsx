@@ -173,10 +173,10 @@ export default function ContactPage() {
               </form>
             </div>
           </div>
-
-          <LocationMap />
         </div>
       </div>
+
+      <LocationMap />
     </LayoutWrapper>
   );
 }

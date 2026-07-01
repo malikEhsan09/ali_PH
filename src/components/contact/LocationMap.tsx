@@ -86,8 +86,8 @@ export default function LocationMap() {
   const islamabadCenter = projected.find((p) => p.id === "dha-phase-5") ?? projected[0];
 
   return (
-    <div className="w-full bg-bg-card border border-border shadow-2xl overflow-hidden">
-      <div className="px-4 sm:px-6 pt-6 pb-4 text-center border-b border-border bg-linear-to-b from-bg-secondary/80 to-bg-card">
+    <section className="mt-16 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-6 text-center">
         <h3 className="text-sm sm:text-base font-heading font-bold tracking-[0.25em] text-text-primary uppercase">
           Ali Paint Shop Network
         </h3>
@@ -122,14 +122,14 @@ export default function LocationMap() {
         </div>
       </div>
 
-      {/* Full-width world map */}
-      <div className="relative w-full bg-[#2d2d2d]">
+      {/* Edge-to-edge world map — breaks out of page container */}
+      <div className="relative w-screen left-1/2 -translate-x-1/2 bg-[#2d2d2d]">
         <svg
           viewBox={WORLD_MAP_VIEW}
-          className="w-full h-auto block"
+          className="w-full h-auto block min-h-[240px] sm:min-h-[320px] lg:min-h-[420px]"
           role="img"
           aria-label="World map showing Ali Paint shop location in Islamabad, Pakistan"
-          preserveAspectRatio="xMidYMid meet"
+          preserveAspectRatio="xMidYMid slice"
         >
           <image href={WORLD_MAP_SRC} width="1580" height="903" preserveAspectRatio="xMidYMid meet" />
 
@@ -223,15 +223,16 @@ export default function LocationMap() {
         </svg>
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={active.id}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25 }}
-          className="px-4 sm:px-6 py-4 border-t border-border bg-bg-secondary/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-        >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+            className="py-4 border-t border-border bg-bg-secondary/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          >
           <div className="flex items-start gap-3">
             <div
               className="w-10 h-10 flex items-center justify-center shrink-0"
@@ -258,27 +259,28 @@ export default function LocationMap() {
             Get Directions
             <ExternalLink size={14} />
           </a>
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
 
-      <div className="md:hidden border-t border-border divide-y divide-border">
-        {projected.map((loc) => (
-          <button
-            key={loc.id}
-            type="button"
-            onClick={() => setActiveId(loc.id)}
-            className={`w-full text-left px-4 py-3 flex items-center gap-3 cursor-pointer transition-colors ${
-              loc.id === activeId ? "bg-accent-brand/10" : "hover:bg-bg-secondary"
-            }`}
-          >
-            <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: locationTypeMeta[loc.type].pin }} />
-            <div>
-              <p className="text-sm font-semibold text-text-primary">{loc.name}</p>
-              <p className="text-xs text-text-muted">{loc.subtitle}</p>
-            </div>
-          </button>
-        ))}
+        <div className="md:hidden border-t border-border divide-y divide-border">
+          {projected.map((loc) => (
+            <button
+              key={loc.id}
+              type="button"
+              onClick={() => setActiveId(loc.id)}
+              className={`w-full text-left py-3 flex items-center gap-3 cursor-pointer transition-colors ${
+                loc.id === activeId ? "bg-accent-brand/10" : "hover:bg-bg-secondary"
+              }`}
+            >
+              <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: locationTypeMeta[loc.type].pin }} />
+              <div>
+                <p className="text-sm font-semibold text-text-primary">{loc.name}</p>
+                <p className="text-xs text-text-muted">{loc.subtitle}</p>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
